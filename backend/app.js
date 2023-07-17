@@ -20,7 +20,6 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.set("strictQuery", false);
-// mongoose.connect('mongodb+srv://blog:RD8paskYC8Ayj09u@cluster0.pflplid.mongodb.net/?retryWrites=true&w=majority')
 mongoose.connect('mongodb+srv://ngarg2207:UEmOHLfhKGM551Dq@cluster0.euefa8n.mongodb.net/?retryWrites=true&w=majority')
 
 app.post('/register', async (req,res) => {
@@ -38,22 +37,26 @@ app.post('/register', async (req,res) => {
 });
 
 app.post('/login', async (req,res) => {
-  const {username,password} = req.body;
-  const userDoc = await User.findOne({username});
-  const passOk = bcrypt.compareSync(password, userDoc.password);
-  if (passOk) {
-    // logged in
-    jwt.sign({username,id:userDoc._id}, secret, {}, (err,token) => {
-      if (err) throw err;
-      res.cookie('token', token).json({
-        id:userDoc._id,
-        username,
+  try {
+    const {username,password} = req.body;
+    const userDoc = await User.findOne({username});
+    const passOk = bcrypt.compareSync(password, userDoc.password);
+    if (passOk) {
+      // logged in
+      jwt.sign({username,id:userDoc._id}, secret, {}, (err,token) => {
+        if (err) throw err;
+        res.cookie('token', token).json({
+          id:userDoc._id,
+          username,
+        });
       });
-    });
-  } else {
-    res.status(400).json('wrong credentials');
+    } else {
+      res.status(400).json('wrong credentials');
+    }
+  } catch (err) {
+    console.log(err)
   }
-});
+  });
 
 app.get('/profile', (req,res) => {
   const {token} = req.cookies;
