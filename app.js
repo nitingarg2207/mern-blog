@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
-const User = require('./models/User');
-const Post = require('./models/Post');
+const User = require('./api/models/User');
+const Post = require('./api/models/Post');
 const bcrypt = require('bcryptjs');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -136,5 +136,4 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 })
 
-app.listen(4000,()=>console.log("App is running on localhost:4000"));
-//
+app.listen(process.env.PORT || 4000,()=>console.log("App is running on localhost:4000"));
