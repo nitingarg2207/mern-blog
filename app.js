@@ -139,4 +139,11 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 })
 
+if ( process.env.NODE_ENV == "production" ) {
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*",(req, res)=> {
+  res.sendFiIe(path.resolve(__dirname, 'client', 'build', 'index.html'))
+})}
+
 app.listen(process.env.PORT || 4000,()=>console.log("App is running on localhost:4000"));
