@@ -2,7 +2,7 @@
   "name": "mern-deploy",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
     "install-server": "cd backend && npm install",
     "start-server": "cd backend && node app.js",
