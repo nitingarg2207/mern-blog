@@ -1,9 +1,10 @@
 {
-  "name": "mern-deploy",
+  "name": "mern-blog",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "install-server": "cd backend && npm install",
     "start-server": "cd backend && node app.js",
     "install-client": "cd client && npm install",
